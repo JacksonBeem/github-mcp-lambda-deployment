@@ -1,0 +1,9 @@
+{
+  "name": "github-lambda-mcp-runtime",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node ../tests/lambda-handler.test.mjs"
+  }
+}

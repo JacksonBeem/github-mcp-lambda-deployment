@@ -1,0 +1,17 @@
+{
+  "version": "2.0",
+  "routeKey": "POST /mcp",
+  "rawPath": "/mcp",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "requestContext": {
+    "requestId": "local-init",
+    "http": {
+      "method": "POST",
+      "path": "/mcp"
+    }
+  },
+  "body": "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"initialize\",\"params\":{\"protocolVersion\":\"2025-06-18\",\"capabilities\":{},\"clientInfo\":{\"name\":\"local\",\"version\":\"0.1.0\"}}}",
+  "isBase64Encoded": false
+}

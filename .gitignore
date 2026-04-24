@@ -1,0 +1,8 @@
+.aws-sam/
+__pycache__/
+*.pyc
+.pytest_cache/
+runtime/bin/github-mcp-server
+runtime/.tmp/
+runtime/node_modules/
+.docker/

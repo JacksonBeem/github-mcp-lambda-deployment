@@ -1,0 +1,17 @@
+{
+  "version": "2.0",
+  "routeKey": "POST /mcp",
+  "rawPath": "/mcp",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "requestContext": {
+    "requestId": "local-tools-list",
+    "http": {
+      "method": "POST",
+      "path": "/mcp"
+    }
+  },
+  "body": "{\"jsonrpc\":\"2.0\",\"id\":2,\"method\":\"tools/list\",\"params\":{}}",
+  "isBase64Encoded": false
+}

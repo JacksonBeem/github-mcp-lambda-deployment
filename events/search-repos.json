@@ -1,0 +1,17 @@
+{
+  "version": "2.0",
+  "routeKey": "POST /mcp",
+  "rawPath": "/mcp",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "requestContext": {
+    "requestId": "local-search-repos",
+    "http": {
+      "method": "POST",
+      "path": "/mcp"
+    }
+  },
+  "body": "{\"jsonrpc\":\"2.0\",\"id\":3,\"method\":\"tools/call\",\"params\":{\"name\":\"search_repositories\",\"arguments\":{\"query\":\"modelcontextprotocol language:python\",\"perPage\":5}}}",
+  "isBase64Encoded": false
+}

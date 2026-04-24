@@ -1,0 +1,87 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: Official GitHub MCP server behind Lambda and API Gateway
+
+Parameters:
+  McpAuthTokenParam:
+    Type: String
+    Default: ""
+    NoEcho: true
+    Description: Optional shared secret expected in the x-mcp-auth header.
+  GithubPersonalAccessTokenParam:
+    Type: String
+    Default: ""
+    NoEcho: true
+    Description: GitHub PAT passed to the official github-mcp-server as GITHUB_PERSONAL_ACCESS_TOKEN.
+  GithubToolsetsParam:
+    Type: String
+    Default: "default"
+    Description: Comma-separated official GitHub MCP toolsets, for example default,repos,issues,pull_requests.
+  GithubToolsParam:
+    Type: String
+    Default: ""
+    Description: Optional comma-separated official GitHub MCP tools to enable in addition to toolsets.
+  GithubReadOnlyParam:
+    Type: String
+    Default: "true"
+    AllowedValues: ["true", "false"]
+    Description: Run the official GitHub MCP server in read-only mode.
+  GithubHostParam:
+    Type: String
+    Default: ""
+    Description: Optional GitHub Enterprise host, for example https://github.example.com.
+  AllowedOriginsParam:
+    Type: String
+    Default: ""
+    Description: Optional comma-separated list of allowed Origin headers.
+
+Globals:
+  Function:
+    Runtime: nodejs20.x
+    Architectures: [x86_64]
+    Timeout: 60
+    MemorySize: 512
+    Tracing: Active
+
+Resources:
+  McpFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: github-lambda-mcp
+      CodeUri: runtime
+      Handler: lambda-handler.handler
+      Environment:
+        Variables:
+          MCP_AUTH_HEADER: "x-mcp-auth"
+          MCP_AUTH_TOKEN: !Ref McpAuthTokenParam
+          MCP_ALLOWED_ORIGINS: !Ref AllowedOriginsParam
+          MCP_SERVER_NAME: "github-lambda-mcp"
+          MCP_SERVER_VERSION: "0.1.0"
+          GITHUB_PERSONAL_ACCESS_TOKEN: !Ref GithubPersonalAccessTokenParam
+          GITHUB_TOOLSETS: !Ref GithubToolsetsParam
+          GITHUB_TOOLS: !Ref GithubToolsParam
+          GITHUB_READ_ONLY: !Ref GithubReadOnlyParam
+          GITHUB_HOST: !Ref GithubHostParam
+          GITHUB_MCP_SERVER_PATH: "/var/task/bin/github-mcp-server"
+      Events:
+        McpApi:
+          Type: HttpApi
+          Properties:
+            Path: /mcp
+            Method: POST
+        McpOptions:
+          Type: HttpApi
+          Properties:
+            Path: /mcp
+            Method: OPTIONS
+        Health:
+          Type: HttpApi
+          Properties:
+            Path: /health
+            Method: GET
+
+Outputs:
+  McpEndpoint:
+    Value: !Sub "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com/mcp"
+  HealthEndpoint:
+    Value: !Sub "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com/health"
