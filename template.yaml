@@ -5,7 +5,7 @@ Description: Official GitHub MCP server behind Lambda and API Gateway
 Parameters:
   McpAuthTokenParam:
     Type: String
-    Default: ""
+    Default: "43b31035-c338-424f-9630-547c5b5afb68"
     NoEcho: true
     Description: Optional shared secret expected in the x-mcp-auth header.
   GithubPersonalAccessTokenParam:

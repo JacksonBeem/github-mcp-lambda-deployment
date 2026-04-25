@@ -1,0 +1,9 @@
+version = 0.1
+
+[default.deploy.parameters]
+stack_name = "github-lambda-mcp"
+region = "us-east-1"
+confirm_changeset = false
+capabilities = "CAPABILITY_IAM"
+resolve_s3 = true
+parameter_overrides = "McpAuthTokenParam=\"43b31035-c338-424f-9630-547c5b5afb68\" GithubPersonalAccessTokenParam=\"\" GithubToolsetsParam=\"default\" GithubReadOnlyParam=\"true\" GithubToolsParam=\"\" GithubHostParam=\"\" AllowedOriginsParam=\"\""
